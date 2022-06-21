@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+
+<!-- Start Welcome User -->
+
+<div class = "welcome">
+    <span></span>
+    <span></span>
+    <span></span>
+    <div class="content">
+        <h2>Welcome {{ name }}!</h2>
+            <p>
+                Please look around and check your level and stats!
+            </p>
+    </div>
+</div>
+
+<!-- End Welcome User -->
+    <div>
+        <form action="/addReward" method="POST">
+            <div class = "reward_forms">
+                <h3>Input Level</h3>
+                <textarea cols = "20" rows = "1" name="reward_level"></textarea>
+            </div>
+            <div class="reward_text_forms">
+                <h3>Input Reward</h3>
+                <textarea cols = "20" rows = "1" name="reward_text"></textarea>
+            </div>
+            <br /> <br/>
+            <input class="addReward" type="submit" value="Add reward" />
+        </form>
+    </div>
+<!-- End Input-->
+
+<!-- Start Progress Buttons -->
+    <button class="button1" href="">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Current Level <br> {{ curLevel }} <br> {{ user_title }} </br>
+    </button>
+
+    <button class="button2" href="">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Next Level <br> {{ curLevel + 1 }} <br> {{ next_title }} </br>
+    </button>
+
+    <!--<p class="CurLevelExplain">This is your current level!</p>
+    <p class="ExpBarExplain">Your Percent to next level! <br>Keep studying to level up!</p>
+    <p class="NextLevelExplain">This is your next level!</p>-->
+<!-- End Progress Buttons -->
+
+<!-- Start EXP Bar -->
+
+<div class = progWheel>
+    <div class = "outer">
+        <div class = "inner">
+            <div id="number">
+                {{xp}}
+            </div>
+        </div>
+    </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+        <defs>
+        <linearGradient id="GradientColor">
+            <stop offset="0%" stop-color="#013236" /> <!-- #14ffe9 // blue : #ffeb3b // yellow : #8317ff // purple : #ff17f7 // pink -->
+            <stop offset="100%" stop-color="#ffbe30" />
+        </linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+</svg>
+
+<script>
+    // get the xp
+    // determine percentage out of 500
+    // set circle stroke-dashoffset to that value
+    xp = document.getElementById("number").innerHTML;
+    if (xp == 0){
+        amount = 500;
+    }else{
+        prog = parseInt(xp) / 1000; //progress to next level
+        relPerc = (prog * 472); //prog relative to amount for circle
+        amount = 472 - relPerc; //amount for the circle is inversely related
+                                // 0 == full, 500 == empty;
+    }
+    circle = document.getElementsByTagName("circle")[0];
+    circle.style.strokeDashoffset = amount;
+</script>
+
+{% endblock body %}

@@ -1,0 +1,534 @@
+\documentclass[12pt]{article}
+\usepackage{url}
+\usepackage{setspace}
+\usepackage[superscript]{cite}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\graphicspath{ {Figures/} }
+\usepackage{caption}
+\usepackage{cite}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\textwidth=6.5in
+\oddsidemargin=0.0in
+\usepackage{listings}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Personal Study Assistant}
+\rhead{Page \thepage}
+
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,
+    linktoc=all,
+    linkcolor=black,
+}
+
+\begin{document}
+
+\begin{titlepage}
+
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+    \center
+
+    \textsc{\LARGE Missouri State University\\~\\Department computer Science}\\[1.0cm]
+
+    \HRule \\[0.4cm]
+    { \huge \bfseries Personal Study Assistant}\\[0.4cm]
+    \HRule \\[1.5cm]
+
+
+    \begin{minipage}{0.4\textwidth}
+        \begin{flushleft} \large
+            Trey Alexander \\
+            Mackensie Bass \\
+            Ali Karimiafshar \\
+            Anh Minh Nhat Doan \\
+            Bryan Leach \\
+        \end{flushleft}
+    \end{minipage}
+    ~
+    \begin{minipage}{0.4\textwidth}
+        \begin{flushright} \large
+            Dr. Belkouche \\
+            YassineBelkhouche@missouristate.edu
+        \end{flushright}
+    \end{minipage}\\[2cm]
+
+    {\large \today}\\[2cm]
+
+\end{titlepage}
+
+\newpage
+%-----------------------------------------------------------------------
+\tableofcontents
+
+\newpage
+%----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+\section{Project description}
+\subsection{Description}
+Google Chrome Extension to help students study by minimizing distractions from other websites.
+This is inspired by The Pomodoro Technique which recommendes studying for 25 minutes, then a 5 minute break, repeating that 3 times and then having a longer break.
+During study time, the user will only be allowed to access approved websites such as Google Classroom. This will be handled through a whitelist of approved websites.
+During the break time, the user is allowed to access any website they desire, but they are encouraged to practice healthy activites like stretching or drinking water.
+The user's keyboard and mouse inputs will be monitored to measure if they are actively working.
+% \subsection{Key Components}
+% \begin{itemize}
+%     \item Timer that switches between study time and break time
+%     \item Whitelist of a pproved websites
+%     \item Parental controls to alter the whitelist
+%     \item Record of past sessions and the all time totals for study time
+% \end{itemize}
+% \subsection{Knowledge Required for Developers}
+% \begin{itemize}
+%     \item HTML
+%     \item CSS
+%     \item JavaScript
+%     \item How to make Chrome Extension
+%     \item Locally host a webpage
+% \end{itemize}
+% \subsection{Hardware required for the user}
+% \begin{itemize}
+%     \item Computer
+%     \item Internet
+%     \item Google Chrome Browser
+% \end{itemize}
+
+\section{Requirements Specification}
+\subsection{Functional Requirements}
+\noindent
+Req-01: On the first run, get information from the user.
+\begin{itemize}
+    \item Description: The function makes the user provide their chosen username and a parent pin.
+    \item Rationale: Student provides information to personalize the experience. Parent pin allows for access to control the whitelist.
+    \item Input(s): Input information about the user and the chosen parent pin.
+    \item Output(s): N/A.
+    \item Dependency: N/A.
+\end{itemize}
+Req-02: Users can choose from a list of timer options when the extension is started.
+\begin{itemize}
+    \item Description: The function lets users choose from a list of timer options. Example options would be A- 25 min study, 5-minute break, 3 times, 15 min long break or B- 45 minute study, 10 minute break, 3 times, 30 minute long break.
+    \item Rationale: User might want to study for different amounts of time different days so this lets them choose.
+    \item Input(s): Function receive option result from users.
+    \item Output(s): Begin chosen session type.
+    \item Dependency: N/A.
+\end{itemize}
+Req-03:  There is a Timer to keep track of study and break time.
+\begin{itemize}
+    \item Description: A timer is running to keep track of users’ study time and break time. Timer can be paused, resumed, and reset by the user and system. Change color in study mode and break mode. Can be hidden or unhidden by the user.
+    \item Rationale: It is easy to loose track of time or think that a lot more time has passed than really did while studying. A timer allows the user to know exactly how long they have been working, and how much longer they have.
+    \item Input(s): Amount of time to start at, values for pause , resume, and hide the timer.
+    \item Output(s): Send an alert when timer reaches 00:00.
+    \item Dependency: Timer amount from Req-02.
+\end{itemize}
+Req-04: Keyboard and mouse interactions are monitored to detect if the user has stopped working.
+\begin{itemize}
+    \item Description: User's keyboard and mouse inputs are monitored on an occurrence basis to ensure the user has not stopped working while not recording the contents of such inputs for privacy.
+    \item Rationale: If a specified period of time elapses with no input from the user detected, it is likely the user has stopped working and measures must be take to help the user stay focused.
+    \item Input(s): Mouse clicks and movements, as well as keyboard keystrokes.
+    \item Output(s): Req-05 is called.
+    \item Dependency: N/A.
+\end{itemize}
+Req-05: If no user inputs detected according to Req-04 after a predetermined amount of time, alert the user with a prompt to verify they are still working.
+\begin{itemize}
+    \item Description: When the conditions of Req-04 are met, the user is prompted to verify they are still working. The study timer is paused until the user verification is complete.
+    \item Rationale: Asking for user interaction to verify they are still working encourages more engagement with the material and ensures the user is present and attentive during the study times.
+    \item Input(s): Req-04.
+    \item Output(s): Prompt to user in the form of a pop up, or other contents.
+    \item Dependency: Req-04.
+\end{itemize}
+Req-06: During study time, check if the Google Chrome browser is in focus.
+\begin{itemize}
+    \item Description: The function checks if the browser window is in focus every few seconds. If it is found not to be, then the value is changed to false.
+    \item Rationale: If the Google Chrome browser window is not in focus during study time, then the user is not studying so the extension needs to get them back on task.
+    \item Input(s): N/A.
+    \item Output(s): The in-focus value is changed to false, and Req-07 is called.
+    \item Dependency: N/A.
+\end{itemize}
+Req-07: During study time, send an alarm and alert to the user if the Google Chrome browser is not in focus, and pause the timer.
+\begin{itemize}
+    \item Description: During study time, an alarm will sound when the extension detects the Google Chrome browser is not the in-focus window. When the user comes back to the page, an alert will show explaining the alarm sounded because the browser window was out of focus.
+    \item Rationale: The purpose of the alarm and alert is to try to prevent the user from using other applications on the computer when they should be studying. The extension cannot prevent other applications, but it can encourage the user to stay on task.
+    \item Input(s): Function receives a value of false.
+    \item Output(s): Sends out an alert and alarm to the user and pauses the timer until the alarm and alert is stopped.
+    \item Dependency: Gets input from Req-06, access timer through Req-03.
+\end{itemize}
+Req-08: Implement a whitelist for only previously approved websites.
+\begin{itemize}
+    \item Description: During study time, the user is only allowed to visit previously approved websites as specified in the whitelist.
+    \item Rationale: If the user is allowed to access non-educational sites such as social media or games, then they will not be focused on studying and will be wasting time.
+    \item Input(s): Can accept new additions to the whitelist from the user’s parental figure with their pin.
+    \item Output(s): N/A.
+    \item Dependency: May receive input from Req-09 if a new site is added.
+\end{itemize}
+Req-09: During study time, access to a non-approved site will result in access to the site being blocked. Option to add the site to the whitelist is displayed with the alert.
+\begin{itemize}
+    \item Description: Access to a site not on the whitelist will be blocked and a message will show explaining that it has been blocked. An option to add the site to the whitelist will also show but will require a parent pin to add it.
+    \item Rationale: Sites not on the approved whitelist should be blocked when attempted to access because the user will not be studying if they are trying to access social media. But, if the site is a new educational resource, then the parent should be able to add it to the list of approved sites.
+    \item Input(s): The whitelist so that the function can see if a site is not allowed.
+    \item Output(s): Block the site, send an alert, add a new website to whitelist if they choose to do so.
+    \item Dependency: Receives the whitelist form Req-08.
+\end{itemize}
+Req-10: When study time ends, display a message for the user to choose to begin or postpone the break.
+\begin{itemize}
+    \item Description: When the study time ends, congratulate the user, and ask if they are ready for their break by displaying a “Start Break” button, and a “Postpone for x minutes” button with a drop-down menu selector for 1, 2, 3, 4, or 5 minutes more. Function will call the short or long break depending on the value of numOfShortBreaksLeft.
+    \item Rationale: The user must take short breaks to avoid burn out which would result in less effective studying.
+    \item Input(s): Called when the study timer ends.
+    \item Output(s): Send the message to the user to being or postpone the break.
+    \item Dependency: Receives the end timer message from Req-03.
+\end{itemize}
+Req-11: Short break: If a break is started, decrease the number of short breaks needed until a long break and begin break time.
+\begin{itemize}
+    \item Description: During break time, the user is allowed to visit non-approved sites and can change the window. There will be a message shown when break time starts to encourage the user to participate in healthy activities such as drinking water, having a healthy snack, and doing some stretches.  This function will also update numOfShortBreaksLeft that decides how many more short breaks there must be until a long break.
+    \item Rationale: The Pomodoro Technique says to have short breaks for a few cycles, then a long break before starting again to help prevent burn out and to use time wisely. The users should be allowed to do whatever they would like during break time, but the pomodoro technique recommends healthy activities and not scrolling social media.
+    \item Input(s): N/A.
+    \item Output(s): Timer is changed to count down until the break is over.
+    \item Dependency: Access the user’s input from Req-10 and access the timer from Req-03.
+\end{itemize}
+Req-12: Long break: If it is time for a long break, begin the break.
+\begin{itemize}
+    \item Description: This function begins the long break which happens once per session after a few cycles of study time and short breaks.
+    \item Rationale: The Pomodoro Technique recommends having a long break after having a few short breaks.
+    \item Input(s): N/A.
+    \item Output(s): Break message is sent out like the message for short break from Req-11.
+    \item Dependency: Is called from Req-10 and accesses the timer from Req-03.
+\end{itemize}
+Req-13: If the break is postponed, turn timer red and keep counting.
+\begin{itemize}
+    \item Description: This function activates when the user does not take the prompted break. Turning the timer read and continuing to count.
+    \item Rationale: Lets the user know that they need to take their break and that the timer is still counting.
+    \item Input(s): User not having hit the break button.
+    \item Output(s): Continues counting, but font is now red.
+    \item Dependency: Input from Req-10 and timer from req-03.
+\end{itemize}
+Req-14: Do not allow for the study tabs to be opened during the break time
+\begin{itemize}
+    \item Description: Does not allow the user to open the tabs they were using for studying during the break.
+    \item Rationale: Forces the user to actually take their break.
+    \item Input(s): Study timer and break timer.
+    \item Output(s): Lock / unlock
+    \item Dependency: Input from Req-10 and timer from Req-03.
+\end{itemize}
+Req-15: At the end of the break, display an alert to begin the next session, and play an audio alert if no response for 1 minute. If this is the end of a long break, ask if they want to restart the same session, stop, or choose a different session
+\begin{itemize}
+    \item Description:  Asks user at the end of their break if they would like to begin their session again and ask if they want to resume, stop, or start a new session. Plays an audio alert after a minute if no response.
+    \item Rationale: Allows user to decide their next steps after a break.
+    \item Input(s): User says: resume, stop, start new.
+    \item Output(s): Repeats user’s input and reacts with the appropriate action. Resumes where user left off, stops the program, or starts a new session.
+    \item Dependency:  Input from Req-10 and timer from Req-03.
+\end{itemize}
+Req-16: Allow parents to approve new websites with a parent pin
+\begin{itemize}
+    \item Description: Allows access to new websites with parent’s approval via a chosen PIN.
+    \item Rationale: User can only visit approved sites during study sessions.
+    \item Input(s): Parent PIN, website URL.
+    \item Output(s): User can now visit that website during study sessions.
+    \item Dependency: Req-09 to bring up whitelist option.
+\end{itemize}
+Req-17: Website for user to view their history, progress data, statistics, and reports, as well as participate in gamification.
+\begin{itemize}
+    \item Description: The user will have the option to log into a website (available on localhost for this project's scope; this website could be deployed on a specific domain) where useful data about their progress can be viewed. The user will be able to participate in gamification to encourage improvements over time.
+    \item Rationale: A centralized location for the user to view all of their data can be very useful to spot trends, access reports, and improve study habits.
+    \item Input(s): Username and password of the user.
+    \item Output(s): Webpage containing user session data.
+    \item Dependency: Python, Flask, and databases.
+\end{itemize}
+Req-18: User has the ability to stop the session at any time (emergency stop, may require parent pin)
+\begin{itemize}
+    \item Description: User can stop their session with an “end button”.
+    \item Rationale: User needs to do something else or leave mid-session. Or they finish all of their work / studying.
+    \item Input(s): User pressing the “end button”. (Possibly a parent PIN input.)
+    \item Output(s): Message that the extension is being closed. (Or maybe a parent PIN input box for approval.)
+    \item Dependency: N/A.
+\end{itemize}
+\subsection{Non-Functional requirements}
+\noindent
+Req-19: Moderate level of responsiveness
+\begin{itemize}
+    \item Description: The extension's features should have a moderate level of responsiveness, at no less than 2 seconds for any action that does not depend on data transfer over The Internet.
+    \item Rationale: This extension does not need to be especially responsive. It should be low enough that the accuracy of the timers is maintained.
+\end{itemize}
+Req-20: Very easy to use
+\begin{itemize}
+    \item Description: The system should be very easy to use for users, with simple instructions and short descriptions. Only an elementary school reading level should be required. This requirement does not have to extend to settings menus or any other areas that require a parent PIN.
+    \item Rationale: This system will likely be used by children.
+\end{itemize}
+Req-21: Self-contained failure
+\begin{itemize}
+    \item Description: If the extension crashes, produces an error, or otherwise fails, it should not compromise the integrity of the entire browser or any open tabs. At worst, only the extension itself should cease functioning.
+    \item Rationale: Users should not suddenly lose progress or data in their studies. Even though they will likely have to restart the browser for the extension to get working again, the user will have an opportunity to save progress in their studies so that they may resume where they left off.
+\end{itemize}
+Req-22:  No storage of browsing history
+\begin{itemize}
+    \item Description: Browsing history of any sort should not be saved or stored by this extension. If need be, only the history stored by the browser itself should be accessed, but it should never be copied anywhere permanent.
+    \item Rationale: Browsing history is often very sensitive data, and this extension should not become an attack vector for that data to be compromised.
+\end{itemize}
+Req-23:  No excessive memory usage
+\begin{itemize}
+    \item Description: This extension should not add more than 100 MB of memory per tab.
+    \item Rationale: Although Chrome and other browsers are notoriously memory-heavy, this extension is simple enough that it should not contribute much to that problem. Notable extra memory usage originating from this extension is likely due to a memory leak or other error.
+\end{itemize}
+Req-24: Adherence to browser and university policies
+\begin{itemize}
+    \item Description: The extension should adhere to all policies that are required of a browser extension for Google Chrome, that was created by students of Missouri State University. This is subject to change if the extension is ported to any other browsers.
+    \item Rationale: All browser extensions have policies they must adhere to in order to be listed on their respective app stores.
+\end{itemize}
+Req-25: Web-based features will update within a day
+\begin{itemize}
+    \item Description: When any changes are submitted after a session, those updates should be visible to the user within 24 hours.
+    \item Rationale: Users will need to see their overall progress in their studies within a reasonable amount of time. Since this will be dependent on a web server, some time should be allowed for data transfer and potential outages.
+\end{itemize}
+
+\pagebreak
+\section{Design}
+\subsection{Design Diagram}
+\begin{figure}[h]
+\includegraphics[width=15.0cm, height=10.0cm]{images/Design.png}
+\end{figure}
+\subsection{Module Descriptions}
+\textbf{Study Extension:} A google chrome extension to help users focus on studying and remember to take breaks. Users have the option to log in which gives access to the website. The extension stores data about the study sessions in the database. \\\\
+\textbf{User Interface:} The popup menu where users control the session, make choices about the timer, provide information, and can access the Progress Website.\\\\
+\textbf{Storage:} Storage provided by the chrome.storage API that is shared among the scripts in the extension.\\\\
+\textbf{Background:} Monitors the content pages to implement the whitelist and closes tabs that violate it. Continuously checks for mouse or keyboard inputs for statistics.\\\\
+\textbf{Content:} Makes changes to the current tab's content such as running the Timer.\\\\
+\textbf{Timer:} Displays a timer on the screen and counts down to the provided time. Contained and executed in the Content Script. Timer accesses storage when finished.\\\\
+\textbf{Database:} Database that stores information about the study sessions such as total time studied and keyboard and mouse input frequencies. Verifies user login in the extension or the website before allowing access to the website information. \\\\
+\textbf{Progress Website:} A locally hosted website which allows users to view information and progress on their study sessions. \\\\
+\textbf{Statistics:} Displays information such as total time spent studying and input frequency.\\\\
+\textbf{History:} Displays information on previous sessions such as date, time began and ended, and total time studied for the session. \\\\
+\textbf{Gamification:} Provides incentives for the users to study more through a game-like system where the total amount studied is translated to points and then to levels and titles.\\\\
+
+
+\section{Implementation and Testing}
+
+\subsection{Development Environment and Implementation}
+\noindent \underline{Overview} \\\\
+\indent The Google Chrome extension was developed in Visual Studio Code with JavaScript, HTML, CSS
+and was tested using the Developer Mode in the Extensions page of the Google Chrome browser. The extension works
+with the server and the database to store progress data about users that have created an account. This progress data is
+available to be viewed from the website in the form of levels.
+\\\\\\
+\underline{Manifest JSON}\\\\
+\indent The first step in developing the extension was to create a JSON file titled "manifest" which
+defines different aspects of the extension such as the name, description, version, scripts for the popup menu,
+scripts for the background service worker, content scripts, and various permissions. The permissions requested were storage, tabs, activeTab, and scripting.
+\\\\
+
+\noindent \underline{Popup Menu} \\\\
+\indent The popup script contains the main control menu for the extension. This script runs each time the popup page
+is opened and first checks shared storage to see what state the popup menu should be in. The possible states
+are the main page, which displays when there is no study session started, a study state which displays when
+the user is in study mode, an intermission state for between study and break, and break state for during short breaks,
+and a long break state for during long breaks. The short and long break states are functionally the same, they just
+have a different title. Once the script determines which state it is supposed to be in, it shows or hides the
+appropriate elements so that it looks the same as the last time the user looked at it, unless the state changed when the timer ended.\\
+
+\\\\Along side checking and updating the state, the script also pulls the relevant timer variables from storage such as
+the number of times studied this session, number of short and long breaks taken, and the chosen number of minutes
+for studying, for each break, the total number of cycles, and the number of times to repeat. All of this information is used to display some progress information at the top of
+the page while in a session. The information is written as a few fractions such as the number of breaks taken out of how many more there are left.\\
+
+\\\\When the popup is in the main page state, it also refills the choices and inputs that the user made
+in the timer choices menu so they do not have to reenter the information and allows for easily repeated custom sessions. 
+When the custom timer options are filled in, a function is called to check that the values are valid. Any input that contains an amount of minutes is not allowed to be negative, 
+while the cycle and repeat options cannot be negative and must be whole numbers. If any of these are invalid, the user is alerted and the values are instead saved as the number 1 
+until the user enters a valid number. \\
+
+\\\\When the user accesses and edits the text box that contains the list of domains for the whitelist,
+the function uses a regular expression to check if it is in the valid from of a domain such as www.google.com or en.Wikipedia.org.
+This check will not allow strings of just letters to get through that could deceive whitelist into allowing any website containing that string. 
+If the domain is valid, it is kept and stored.
+If not, it is removed and a message is shown beneath the text box listing the entries that were removed.\\
+
+\\\\When the begin timer button is clicked, it checks that a radio button has been selected and sends an alert telling
+the user to make a selection before trying to begin if none are selected. If an option is selected, it checks to see if it was a recommended timer option or the custom.
+If the custom timer was chosen, the script also checks if all of the inputs are filled in before allowing the session to begin, and sends an alert if any are empty.\\
+
+\\\\Once the choices are deemed valid, begins by asking the user if they are ready to reload the current tab to allow the timer to show up. 
+If the answer is no, then nothing is changed. If the answer is yes, then the session begins by saving all of the timer choice information to shared storage.
+Then the state of the page is set to study, the whitelist blocking is enabled, and the start timer function is called.\\
+
+\\\\The function to start the timer calls a function to get the end time for the number of chosen minutes, saves it to shared storage, and finally reloads the current page.\\
+
+\\\\The end time function gets the current time, then gets the end time by adding the current time and the number of minutes to study multiplied by 60000 since the getTime function
+returns milliseconds. Next turns the time into a string of the form HH MM SS and saves it to shared storage.\\
+
+\\\\
+When the popup state must be changed, one of the corresponding functions is called to set it up. There is one function for each of the possible states of the popup 
+menu and each of them shows and hides elements as needed, sets the title, sets the whitelist to on for studying, turns the list into a blacklist during breaks, or turns 
+them both off so normal browsing is not interrupted.
+\\\\
+\indent When a timer ends, the state is entered into an intermission which allows the user to open up the popup menu and continue to the next state. The words on the button that controls the continuation 
+are changed to reflect what the next step is. If the number of completed study periods is equal to the number of cycles, and the number of completed short breaks 
+is equal to one less than the number of cycles, then the next state is a long break because the cycle requirement has been met. 
+Then if the number of completed study periods is more than the the number of short breaks completed, the next state is a short break. 
+Lastly, if the number completed study periods is the same as completed short breaks, then the next state is a study period.
+\\\\\indent When the next state button is clicked, the same calculation is completed, the end time is calculated, and the start timer function is called for the corresponding end time. 
+Additionally, the long break phase means it is time to repeat so the count of completed study periods and short breaks are reset.
+\\\\\indent During breaks, a message about healthy choices is also displayed in the popup menu. It lists things like drinking water and doing stretches to encourage users to be mindful about their health while working. \\
+
+\\\\The check to see if the session is completed occurs when the number of long breaks that have been completed is the same as the number of repeats. 
+At this point, the state is reset to the main page and checks if there is any study session data to save to the database. If there is, then it loads the number of minutes studied, 
+the number of mouse clicks recorded, and the number of key presses recorded for the whole session into an object and uses a fetch request to send it to the database. If the user is logged in with 
+the website, then their data is saved and connected to their account. If the user is not logged in or doesn't have an account, it is not saved since the only way for the user to view their statistics 
+is on the website with an account. This is why the users are prompted to make an account or log in before they start a session. 
+If the user decides to end the session early, the study periods they have completed are still saved to the database.
+Once the data is sent to the database, then the variables are reset so that it only keeps track of totals for one session.
+
+\\\\
+We are using local storage to store the data of the users. For example, when the user provides their name in the input field, the submit button will send their input to local storage and store it. Besides storing the username, we will also store the PIN number in local storage. For the PIN number, a function will make an authorization step to know whether the PIN number is correct or not, then decide to let the user enter ParentMode or not.
+\\\\
+\indent Once the user or the parent creates an authorization pin, this pin is used to allow the user to access some of the more important controls of the extension. If the user wants to add a new website domain to 
+the whitelist, they must first provide a correct authorization pin before being allowed to edit it. 
+\\\\\indent When a page is blocked and the popup menu asks if they would like to allow it next time, they are required to enter the 
+pin in order for the script to add it to the list. 
+\\\\\indent Lastly, if the user wants to end the session before it is finished, this also requires entering the pin. 
+\\\\\indent This pin is stored in local storage, but it is encoded with base64 to prevent the user from being able to access it if they are 
+not given permission. Even though older users can create and use their pin at will, requiring the users to complete a task in order to allow them to access another site 
+or end the session will help encourage them to only use sites they need to use, and to complete the session entirely. 
+\\\\\indent The verification process bring up a form and is asked to provide the pin, once the pin in storage is compare with the provided and found to be correct, then the request action is completed. If it is not correct, 
+they are told as such and given another chance. If they are unable to provide the correct pin, then the state will go back to the way it was and the action is not completed. 
+\\\\
+\noindent
+\underline{Content Script}\\\\
+\indent When the current tab is reloaded, the content script is run on the current tab's page. The content script first creates a div HTML element, and adds styling to prepare
+for the timer to be shown on screen. \\\\
+\indent There is a message listener that responds to a message sent from the popup script
+when the user presses the pause button. When a pause message is received, the content script flips the paused value on or off, and saves the time the timer was paused or unpaused.\\\\
+\indent There are also event listeners that listen to mouse clicks and key presses and count each event during a study period. The mouse click event also helps keeps track of the time since a click 
+was last recorded to help track if the user is active. After three minutes of no mouse clicks, an alert is sent to get the users attention and pauses the timer until they close it. This is one way we 
+are trying to prevent users cheating on the time studied by letting the timer run with no interaction with the page. The time is kept track of using the set interval function just like the timer. \\
+
+\\\\When the content script is run from the extension injecting it into the current page, it first checks if the timer is supposed to be paused. If paused, it does nothing. Once it is unpaused, then
+the script accesses shared storage to get the end time for the timer and parses out the hour, minutes, and seconds and then stores it in a date object. 
+This is also when it checks if it is a study or break period and sets the color of the timer to white for studying, and blue for breaks so the user can easily remember which period they are in. \\\\
+\indent The script then enters a set interval function which runs every second. The logic of this function was found in an article called "How TO - JavaScript Countdown Timer" and we changed the timer to only show hours, minutes, and seconds, and to work from a supplied time.
+This function first checks if there is any value stored for the pause start time. If there is,
+then it subtracts the start pause from the end pause time to get the amount of real time that passed while paused, and adds that to the timer end time.
+The start and end pause times are reset to null. For each second that this function is called, it gets the current time and subtracts it from the
+end time to find how much is left. Then gets the hours, minutes, and seconds values of the difference and displays the string to the screen in the div created earlier.
+It then checks if the difference is less than or equal to 0, which means the timer is done.
+\\\\\indent If the timer is done, it asks the user if they are ready to move on to the next stage. 
+If the answer is no, then two minutes are added to the timer and it turns red to indicate that the user should have moved on to the next stage already. The purpose of allowing an extension is so that if the user is in the middle of a question, paragraph, or other kind of work, 
+they are allowed to get to a stopping point. However, since they have already completed the set time, the progress is saved and the popup menu is set to intermission where there is the option to move on to the next state. 
+If the two minutes runs out, and the user chooses to be done, the additional time spent is saved. 
+If the user never postponed, then the progress and time studied are saved and the popup is set to intermission. \\
+
+\\\\
+\noindent \underline{Background Script}\\\\
+\indent The whitelist blocking is handled in the background script, also called the service worker. The logic of this portion came from an article called "Learn the most useful Chrome APIs by creating Block Site Chrome extension". We changed the function to block tabs based on not being in the list, and added some variables to save some information about that blocked page in local storage.
+When the extension is ran, the background first checks if there is an existing whitelist in storage. If not, then it creates an empty array as a placeholder.
+It also checks if there are values called "enabled" and "breakTime" of type Boolean and creates and sets them to false if there are none.\\
+\\\\
+During study time, a function checks if the browser window is not in focus every few seconds. If it is not, then an alarm is sounded, accompanied by an alert display.
+
+\\\\Also in the background script is an event listener for when any tab in the browser window requests for a page to load. This is referred to as the tab being updated.
+When the script receives the notice, it grabs the tab id and information about the change. These parameters allow the function
+to grab the URL from the new tab and test it. \\\\
+\indent First, it tests if it exists, or if it starts with "http". If either of these things are false, then the function returns and does not block it.
+This is so that pages that begin with "chrome" are allowed through and never blocked because they could be important settings pages.
+\\\\\indent If it passes the first test, it moves on to the second test where it checks for if "enabled" or "breakTime" are stored as true. Enabled means the 
+script will looks through the list of allowed domains and looks for the domain of the current URL. If the domain is not found, then the tab is removed, and the URL is saved to shared memory and a flag that says a page was recently blocked is set.
+This is the whitelist which is used during study periods. 
+\\\\\indent Saving the domain is used so that when the user goes back into the popup page, the script checks for these values and asks the use if they want to add that domain to the whitelist. If they choose yes and a valid pin is provided, then the domain
+is added and will not be blocked the next time they ask to open it. \\\\
+\indent
+BreakTime being true means that the list now becomes a blacklist so that the user is forced to take their break before continuing to study. The main differences are that if the domain is found in the list, then the tab is removed, 
+no option to remove it from the list is provided, and Google is excluded from being blocked to allow users to use the search engine during study periods and breaks.
+\\\\
+
+
+\noindent \underline{Server}\\
+\\The server was developed in the Visual Studio Code IDE with python 3.10 using The Flask and Flask-Sessions modules. The server is composed of an app.py file, which serves the website on the localhost. If desired, this can be later configured to deploy the server on a purchased domain, however, this step was omitted since there are no budgets allocated to this group project by MSU or the CS department. Flask sessions are used to facilitate a user's login actions. The server currently has support for various endpoints, such as "/", "/login", "/signup", "/logout", etc.
+\\The server dynamically changes the contents of the navigation bar in such a way that if the user is not logged in, only the home, login, and logout buttons are available. However, if the user is logged in, the stats and history buttons also appear and the login and signup buttons are replaced with a logout button. The server also facilitates
+\\The server employs a database to store user's username and hashed password. Currently, for demonstration purposes only, these passwords can be temporarily acquired by the admin login credentials. The python class db\_tools facilitates executing common SQL queries, such as creating a new users table, adding users to the database, retrieving passwords for comparison, etc.\\\\\\
+
+\noindent \underline{Database} \\
+\\\indent A database was employed to store various data about the users, their study sessions, and levels. Since the server program is written in Python program programming language, sqlite3 was used to access the database, execute SQL queries, and to retrieve data from the database. A class db\_tools was used to facilitate execution of commonly used SQL queries. This class provides functionality to create required tables, if they do not already exist, such as the user's credentials, personal details, sessions, and levels. The credentials table is comprised of columns for the user id, username, and hashed password. The details table currently is comprised of only the first and last name of the user, but will be later expanded to include more details such as an email address, etc. The sessions table is made of columns for the entry id, user id, the time the session took place, total duration of the session, number of mouse clicks, and lastly the number of keyboard clicks. The levels table currently includes columns for the user id, number of xps, and the current level.  Moreover, the db\_tools class includes methods for adding new users credentials to the appropriate table, adding and retrieving study sessions, retrieving a user's password, and verifying whether a username already exists or not. \\\\
+
+
+\noindent \underline{Website} \\\\\indent
+Our website contains 3 pages, a Home page, a Stats page, and a Login page. The Home page consists of a welcome box for the dynamic user and instructions on the site. It also contains the user’s dynamic name, current level and rank, next level and rank as well as rewards (if the level is a multiple of 5), and a progress wheel / percentage to show their current level.
+\\\\\indent The Stats page works by displaying the variables we use for our experience system in boxes. These boxes are split for what variables they represent: the mouse clicks, key presses, and time spent studying. Time spent studying is based on the amount of time the timer runs. Mouse clicks and key presses are collected while the extension is running. We also have graphs tied to each of these variables so users can keep track of their individual statistics by date.
+\\\\\indent We also have a history page that shows the combined stats side-by-side in a large chart. This provides a scaled benchmark comparing all of the stats to each other.
+\\\\\indent The Login page works as a typical login page where it checks the database for a matching username and password and logs the user in, displaying their personalized stats and levels for gamification.
+\\\\\indent All of the variables listed above are tied to the user in the database, and are displayed based off of the profile that is signed in.
+\\\\
+
+\subsection{Testing Scenarios and Results}
+\noindent \underline{Extension} \\\\\indent
+The extension has several fields for user input. We developed the test cases for these fields, with the results shown below:
+\begin{itemize}
+    \item All timer options were selected.
+    \begin{itemize}
+        \item Result: no issues.
+    \end{itemize}
+    \item Customer timer entry. Cases: (-256, -1, 0, 1, 59, 61, 255, 256, 60000000)
+    \begin{itemize}
+        \item Result: Negative numbers had unexpected behavior. This has been fixed.
+    \end{itemize}
+    \item Whitelist entry. Cases: (a, -1, 0, 1, www., //, /*)
+    \begin{itemize}
+        \item Result: Some letters were giving false negatives. This has been fixed.
+    \end{itemize}
+    \item Name entry. Cases: (-1, 0, B, b, bB, *, .., //, /*, bbbbbbbbbbbb)
+    \begin{itemize}
+        \item Result: no issues.
+    \end{itemize}
+\end{itemize}
+The whitelist and timers were also tested at many points throughout the project. There were various issues with timers not always displaying, and old tabs not behaving correctly. Various fixes were employed, including a forced reload when starting a new session. These issues have been resolved, and core functionality of the extension behaves as expected.
+\\\\
+\noindent \underline{Website} \\\\\indent
+A variety of tests were performed to ensure login for the website behaves as expected, such as:
+\begin{itemize}
+    \item User visiting the "/" endpoint without signing in.
+    \begin{itemize}
+        \item The user is rerouted to the login page.
+    \end{itemize}
+    \item User attempting to sign in without having signed up before.
+    \begin{itemize}
+        \item The user is redirected to the signup page.
+    \end{itemize}
+    \item User attempting to sign up with existing username.
+    \begin{itemize}
+        \item The user is redirected to the login page.
+    \end{itemize}
+    \item User attempting to sign in with an incorrect password.
+    \begin{itemize}
+        \item The user is redirected to the login page and advised the password is incorrect.
+    \end{itemize}
+    \item The user attempts to manually access the "/logout" endpoint.
+    \begin{itemize}
+        \item If the user is logged in, the session name is removed and user is logged out. Regardless, the user is redirected to the login page.
+    \end{itemize}
+\end{itemize}\\\\
+
+\section{References}
+
+\begingroup
+\renewcommand{\section}[2]{}
+\begin{thebibliography}{10}
+    \bibitem{Bucka2020}
+    Bucka, P. (30 July 2020) \textit{Learn the most useful Chrome APIs by creating Block Site Chrome extension}.
+    DEV. https://dev.to/penge/learn-the-most-useful-chrome-apis-by-creating-block-site-chrome-extension-2de8
+
+    \bibitem{W3S}
+    W3Schools. (n.d.)\textit{How TO - JavaScript Countdown Timer}. https://www.w3schools.com/howto/howto_js_countdown.asp
+
+    \bigskip
+\end{thebibliography}
+\endgroup
+
+
+\end{document}

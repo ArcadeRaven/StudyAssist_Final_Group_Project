@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css?family=Michroma');
+
+body {
+    width: 600px;
+}
+
+
+#popupContainer {
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+#options,
+#pauseBtn,
+#nextStep,
+#messages,
+#healthy {
+    display: none;
+    color: #ffbe30;
+}
+#options{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#healthy {
+    display: inline-block;
+}
+
+#messages,
+#healthy {
+    margin: 0;
+}
+
+#pinValidaionDiv {
+    display: none;
+}
+
+
+
+/* style to match site */
+
+
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background-image: url(bg3.jpg);
+    background-size: cover;
+}
+
+h3 {
+    font-family: 'Michroma', sans-serif;
+    color: #ffbe30;
+}
+
+#timerTable {
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ffbe30;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#timerOptions {
+    text-align: left;
+}
+
+
+
+
+/* START buttons*/
+#beginSession {
+    color: rgb(255, 255, 255);
+    font-family: 'Michroma', sans-serif;
+    background-color: #137575cc;
+}
+
+#pauseBtn {
+    color: rgb(255, 255, 255);
+    font-family: 'Michroma', sans-serif;
+    background-color: #137575cc;
+}
+
+
+
+#nextStep {
+    color: rgb(255, 255, 255);
+    font-family: 'Michroma', sans-serif;
+    background-color: #137575cc;
+}
+
+#save,
+#editbtn, 
+#validation{
+    color: rgb(255, 255, 255);
+    font-family: 'Michroma', sans-serif;
+    background-color: #137575cc;
+}
+
+#popWebsites, 
+#pinValidBtn, 
+#pinValidCancelBtn {
+    color: rgb(255, 255, 255);
+    font-family: 'Michroma', sans-serif;
+    background-color: #137575cc;
+}
+
+
+#endSession {
+    display: none;
+    color: rgb(255, 255, 255);
+    font-family: 'Michroma', sans-serif;
+    background-color: #137575cc;
+}
+
+#websiteBtn {
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+
+}
+#createLoginBtn{
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+    
+    
+}
+
+#optionsBtn {
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+}
+
+#parentModeBtn {
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+}
+
+input[type=submit] {
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+}
+
+#buttonInfo {
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+}
+
+#validation {
+    font-family: 'Michroma', sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #137575cc;
+}
+
+#parentInput {
+    display: none;
+}
+
+#pinValidaionDiv {
+    display: none;
+}
+
+#parentInputForm, #pinValidaionForm {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+#parentInputP1,
+#parentInputP2,
+#parentInputP3,
+#parentInputP4, 
+#pinVal1, 
+#pinVal2,
+#pinVal3,
+#pinVal4{
+    margin: 0 10px;
+    border: 1px solid #333;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    font-size: 50px;
+}
+
+
+
+#beginSession,
+#endSession,
+#websiteBtn,
+#optionsBtn,
+#parentModeBtn,
+#buttonInfo,
+input[type=submit],
+#nextStep,
+#pauseBtn,
+#popWebsites,
+#save,
+#editbtn, 
+#pinValidBtn, 
+#pinValidCancelBtn,
+#validation{
+    padding: 15px 25px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+
+#validation:hover,
+#beginSession:hover,
+#endSession:hover,
+#websiteBtn:hover,
+#optionsBtn:hover,
+#parentModeBtn:hover,
+#buttonInfo:hover,
+input[type=submit]:hover,
+#nextStep:hover,
+#pauseBtn:hover,
+#popWebsites:hover,
+#save:hover 
+#editbtn:hover{
+    background-color: #ffbe30;
+}
+
+#validation:active,
+#beginSession:active,
+#endSession:active,
+#websiteBtn:active,
+#optionsBtn:active,
+#parentModeBtn:active,
+#buttonInfo:active,
+input[type=submit]:active,
+#nextStep:active,
+#pauseBtn:active,
+#popWebsites:active,
+#save:active,
+#editbtn:active {
+    background-color: #ffbe30;
+    box-shadow: 0 5px #eaa613;
+    transform: translateY(4px);
+}
+
+
+/* RADIO BUTTONS */
+
+input[type="radio"] {
+    width: 50px;
+    height: 20px;
+    margin: 5px;
+    padding-top: 10px;
+    background: #fff;
+    -webkit-appearance: none;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: -5px -5px 20px rgba(255, 255, 255, 0.1),
+        5px 5px 10px rgba(0, 0, 0 1),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.1),
+        inset 2px 2px 5px rgba(0, 0, 0, 0.5),
+        0 0 0 2px #1f1f1f;
+    transition: 0.5s;
+}
+
+input[type="radio"]:checked {
+    background: #ffbe30;
+}
+
+input[type="radio"]::before {
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(to top, #000, #555);
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px #232323;
+    transform: scale(0.98, 0.96);
+    transition: 0.5s;
+}
+
+input[type="radio"]::after {
+    border-radius: 50%;
+    background: #555;
+    transition: 0.8s;
+}
+
+input[type="radio"]:checked::after {
+    background: #ffbe30;
+    box-shadow: 0 0 5px #ffbe30,
+        0 0 15px #ffbe30,
+        0 0 30px #ffbe30;
+}
+
+#parentModeBtn{
+    display: inline-block !important;
+}
